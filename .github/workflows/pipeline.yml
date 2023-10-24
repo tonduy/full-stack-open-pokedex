@@ -56,6 +56,8 @@ jobs:
 
   notification:
     needs: [ simple_deployment_pipeline ]
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' && !contains(toJson(github.event.commits.*.message), '#skip') }}
     steps:
       - name: The job has succeeded
         uses: rjstone/discord-webhook-notify@v1.0.4
